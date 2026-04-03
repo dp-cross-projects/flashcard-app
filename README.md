@@ -23,6 +23,8 @@
 - [React Native Documentation](https://reactnative.dev/docs/environment-setup)
 - [Expo Documentation](https://docs.expo.dev/)
 - [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+- Nativewind
+- React Native Reusables
 
 # Future Work
 
