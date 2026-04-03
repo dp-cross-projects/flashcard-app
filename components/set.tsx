@@ -1,9 +1,4 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Text } from "@/components/ui/text";
-import { useSQLiteContext } from "expo-sqlite";
-import { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-
 import {
   Dialog,
   DialogClose,
@@ -13,7 +8,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Text } from "@/components/ui/text";
 import { Link } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+import { useEffect, useState } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -46,27 +45,32 @@ export default function RenderSets() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text variant="h2">Sets</Text>
+    <>
+      <View style={styles.container}>
+        <Text variant="h2">Sets</Text>
 
-      {sets.length > 0 ? (
-        sets.map((s: any) => (
-          <TouchableOpacity key={s.id}>
-            <Link href={`/flashcard/${s.id}`}>
-              <Card className="w-full max-w-sm">
-                <CardHeader className="flex-row">
-                  <View className="flex-1 gap-1.5">
-                    <CardTitle>{s.name}</CardTitle>
-                  </View>
-                </CardHeader>
-              </Card>
-            </Link>
-          </TouchableOpacity>
-        ))
-      ) : (
-        <Text>There are not sets</Text>
-      )}
+        {sets.length > 0 ? (
+          sets.map((s: any) => (
+            <TouchableOpacity key={s.id}>
+              <Link href={`/flashcard/${s.id}`}>
+                <Card className="w-full max-w-sm">
+                  <CardHeader className="flex-row">
+                    <View className="flex-1 gap-1.5">
+                      <CardTitle>{s.name}</CardTitle>
+                    </View>
+                  </CardHeader>
+                </Card>
+              </Link>
+            </TouchableOpacity>
+          ))
+        ) : (
+          <Text>There are not sets</Text>
+        )}
 
+        <TouchableOpacity onPress={clearData}>
+          <Text>Clear</Text>
+        </TouchableOpacity>
+      </View>
       <Dialog>
         <DialogTrigger asChild>
           <Button>
@@ -93,10 +97,7 @@ export default function RenderSets() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <TouchableOpacity onPress={clearData}>
-        <Text>Clear</Text>
-      </TouchableOpacity>
-    </View>
+    </>
   );
 }
 

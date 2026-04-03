@@ -21,6 +21,7 @@ export default function RenderFlashcard() {
   const [flashcards, setFlashcards] = useState<any>("");
   const [item, setItem] = useState("");
   const [definition, setDefinition] = useState("");
+  const [cardTitle, setCardTitle] = useState(true);
 
   const { id } = useLocalSearchParams();
 
@@ -30,10 +31,9 @@ export default function RenderFlashcard() {
 
   async function getFlashcards() {
     const result = await db.getAllAsync<any>(
-      "SELECT * FROM cards WHERE id = ?",
+      "SELECT * FROM cards WHERE set_id = ?",
       id.toString(),
     );
-
     setFlashcards(result);
   }
 
@@ -80,13 +80,13 @@ export default function RenderFlashcard() {
                 </DialogTrigger>
 
                 <DialogContent>
-                  <Text>{f.item}</Text>
-                  <Text>{f.definition}</Text>
-                  <DialogClose asChild>
-                    <Button variant="outline">
-                      <Text>Close</Text>
-                    </Button>
-                  </DialogClose>
+                  <TouchableOpacity onPress={() => setCardTitle(!cardTitle)}>
+                    {cardTitle ? (
+                      <Text>{f.item}</Text>
+                    ) : (
+                      <Text>{f.definition}</Text>
+                    )}
+                  </TouchableOpacity>
                 </DialogContent>
               </Dialog>
             ))
