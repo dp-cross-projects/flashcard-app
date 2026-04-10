@@ -1,35 +1,43 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This project is a Flashcard App for Android and was created using React Native and Expo to introduce into mobile applications development. The main objective is to give to the user an application to save data into flashcard for memorizing or studying sessions. This app was made using Android Studio, then you can use an emulator to run and test it.
 
-{Provide a description of your app. Describe how to use the app.}
+Instructions
 
-{Describe your purpose for creating this app.}
+1. Install dependencies
 
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the app running and a walkthrough of the code.}
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+   npx expo start
+   ```
 
 [Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
 
-{Describe the tools that you used to develop the app}
-
-{Describe the programming language that you used and any libraries.}
+- Language: TypeScript
+- Framework: React Native / Expo
+- Database: SQLite (Expo SQLite)
+- Styles: Nativewind / Tailwind
+- Components Library: React Native Reusables
+- Emulator: Android Studio
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
 - [React Native Documentation](https://reactnative.dev/docs/environment-setup)
 - [Expo Documentation](https://docs.expo.dev/)
-- [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/)
-- Nativewind
-- React Native Reusables
+- [Expo SQLite Documentation](https://docs.expo.dev/versions/latest/sdk/sqlite/)
+- [Nativewind Documentation](https://www.nativewind.dev/docs/getting-started/installation)
+- [Tailwind Documentation](https://tailwindcss.com/docs/installation/using-vite)
+- [React Native Reusables Documentation](https://reactnativereusables.com/docs)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
-- Item 3
+- Flashcard navigation: In the actual app the user needs to close the card and open the next. Then, the next feature is to give the user an easy way to navigate through flashcards.
+- Edit flashcards: The user cannot edit the card content. To save the required data, the user need to delete and create a new card.
+- User Experience: The app uses buttons for interactions. It would be needed to take advantage of slide to move and delete cards.
