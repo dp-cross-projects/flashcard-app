@@ -11,9 +11,11 @@ import {
 import { Text } from "@/components/ui/text";
 import { Link } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
+import { Trash2 } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Button } from "./ui/button";
+import { Icon } from "./ui/icon";
 import { Input } from "./ui/input";
 
 export default function RenderSets() {
@@ -40,8 +42,9 @@ export default function RenderSets() {
     getSets();
   }
 
-  async function clearData() {
-    await db.runAsync("DELETE FROM sets");
+  async function clearData(id: any) {
+    await db.runAsync("DELETE FROM sets where id = ?", id);
+    getSets();
   }
 
   return (
@@ -51,25 +54,32 @@ export default function RenderSets() {
 
         {sets.length > 0 ? (
           sets.map((s: any) => (
-            <TouchableOpacity key={s.id}>
-              <Link href={`/set/${s.id}`}>
-                <Card className="w-full max-w-sm">
-                  <CardHeader className="flex-row">
-                    <View className="flex-1 gap-1.5">
-                      <CardTitle>{s.name}</CardTitle>
-                    </View>
-                  </CardHeader>
-                </Card>
-              </Link>
-            </TouchableOpacity>
+            <View className="flex flex-row w-full" key={s.id}>
+              <TouchableOpacity className="flex-1">
+                <Link href={`/set/${s.id}`}>
+                  <Card className="w-full max-w-sm">
+                    <CardHeader className="flex-row">
+                      <View className="flex-1 gap-1.5">
+                        <CardTitle>{s.name}</CardTitle>
+                      </View>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              </TouchableOpacity>
+              <Button
+                onPress={() => {
+                  clearData(s.id);
+                }}
+                variant="destructive"
+                className="flex-2"
+              >
+                <Icon as={Trash2}></Icon>
+              </Button>
+            </View>
           ))
         ) : (
           <Text>There are not sets</Text>
         )}
-
-        <TouchableOpacity onPress={clearData}>
-          <Text>Clear</Text>
-        </TouchableOpacity>
       </View>
       <Dialog>
         <DialogTrigger asChild>
@@ -83,7 +93,7 @@ export default function RenderSets() {
             <DialogTitle>Topic Name</DialogTitle>
           </DialogHeader>
           <View>
-            <Input value={topic} onChangeText={setTopic}></Input>
+            <Input value={topic} onChangeText={setTopic} maxLength={30}></Input>
           </View>
           <DialogFooter className="flex flex-row">
             <Button onTouchStart={addNewSet}>
