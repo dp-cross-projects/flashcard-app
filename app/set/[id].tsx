@@ -10,11 +10,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Text } from "@/components/ui/text";
 import { Link, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 
 export default function RenderFlashcard() {
   const db = useSQLiteContext();
@@ -79,14 +80,15 @@ export default function RenderFlashcard() {
                   </TouchableOpacity>
                 </DialogTrigger>
 
-                <DialogContent>
-                  <TouchableOpacity onPress={() => setCardTitle(!cardTitle)}>
-                    {cardTitle ? (
-                      <Text>{f.item}</Text>
-                    ) : (
-                      <Text>{f.definition}</Text>
-                    )}
-                  </TouchableOpacity>
+                <DialogContent className="p-0" style={styles.cardContent}>
+                  <Pressable
+                    onPress={() => setCardTitle(!cardTitle)}
+                    style={styles.cardContent}
+                  >
+                    <Text className="text-foreground block w-64 h-64">
+                      {cardTitle ? f.item : f.definition}
+                    </Text>
+                  </Pressable>
                 </DialogContent>
               </Dialog>
             ))
@@ -99,27 +101,35 @@ export default function RenderFlashcard() {
       <Dialog>
         <DialogTrigger asChild>
           <Button>
-            <Text>Add New Set</Text>
+            <Text>Add New Card</Text>
           </Button>
         </DialogTrigger>
 
-        <DialogContent>
+        <DialogContent className="flex flex-column w-full max-w-64">
           <DialogHeader>
-            <DialogTitle>Item Name</DialogTitle>
+            <DialogTitle>Flashcard</DialogTitle>
           </DialogHeader>
-          <View>
-            <Input value={item} onChangeText={setItem}></Input>
-            <Input value={definition} onChangeText={setDefinition}></Input>
+          <View className="w-full flex flex-column max-w-64">
+            <Label>Title</Label>
+            <Input value={item} onChangeText={setItem} maxLength={40}></Input>
+            <Label>Description</Label>
+            <View className="flex-2 w-full w-2">
+              <Input
+                value={definition}
+                onChangeText={setDefinition}
+                maxLength={40}
+              ></Input>
+            </View>
           </View>
-          <DialogFooter>
+          <DialogFooter className="flex flex-row">
+            <Button onTouchStart={addNewFlashcard}>
+              <Text>Add</Text>
+            </Button>
             <DialogClose asChild>
               <Button variant="outline">
                 <Text>Close</Text>
               </Button>
             </DialogClose>
-            <Button onTouchStart={addNewFlashcard}>
-              <Text>Add</Text>
-            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -135,5 +145,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 40,
     marginTop: 20,
+  },
+  cardContent: {
+    flex: 1,
+    padding: 40,
+    marginTop: 20,
+    justifyContent: "center",
+    alignContent: "center",
   },
 });

@@ -52,7 +52,7 @@ export default function RenderSets() {
         {sets.length > 0 ? (
           sets.map((s: any) => (
             <TouchableOpacity key={s.id}>
-              <Link href={`/flashcard/${s.id}`}>
+              <Link href={`/set/${s.id}`}>
                 <Card className="w-full max-w-sm">
                   <CardHeader className="flex-row">
                     <View className="flex-1 gap-1.5">
@@ -78,22 +78,22 @@ export default function RenderSets() {
           </Button>
         </DialogTrigger>
 
-        <DialogContent>
+        <DialogContent className="flex flex-column">
           <DialogHeader>
             <DialogTitle>Topic Name</DialogTitle>
           </DialogHeader>
           <View>
             <Input value={topic} onChangeText={setTopic}></Input>
           </View>
-          <DialogFooter>
+          <DialogFooter className="flex flex-row">
+            <Button onTouchStart={addNewSet}>
+              <Text>Add</Text>
+            </Button>
             <DialogClose asChild>
               <Button variant="outline">
                 <Text>Close</Text>
               </Button>
             </DialogClose>
-            <Button onTouchStart={addNewSet}>
-              <Text>Add</Text>
-            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
