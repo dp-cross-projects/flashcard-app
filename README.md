@@ -16,7 +16,7 @@ Instructions
    npx expo start
    ```
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://www.youtube.com/watch?v=dKCyStTTXQY)
 
 # Development Environment
 
